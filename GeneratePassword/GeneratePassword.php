@@ -24,16 +24,17 @@ class GeneratePassword
         $workflow = new Workflows();
         if($this->argv == '-h' || $this->argv == '--help') {
             $usageTextArr = [
-                "Params:",
                 "length:       length of password",
-                "type:         number/lower/upper/special join by '-', or 'all' and 'custom'",
-                "customStr:    when type=custom, customStr=123456 will create password by use 123456",
+                "type:         number/lower/upper/special join by -",
+                "type:         or all/custom",
+                "customStr:    type=custom, customStr=123 use 123 only",
+                "default: length=32&times=5&type=number-lower-upper", //Maybe bug. This will go to the first line
                 "splitChar:    split char for password, default is empty",
                 "splitLength:  split password by every splitLength step",
                 "times:        create how many password in one time",
             ];
             foreach ($usageTextArr as $key => $value) {
-                $workflow->result(null, $value, $value, null, '', null);
+                $workflow->result($key + 1, '', $value, null, '', null);
             }
         } else {
             $defaultData = array(
@@ -49,6 +50,13 @@ class GeneratePassword
 
             $post = array_merge($defaultData, $post);
 
+            if(empty($post['times'])) {
+                $post['times'] = $defaultData['times'];
+            }
+
+            if(empty($post['splitLength'])) {
+                $post['splitLength'] = $defaultData['splitLength'];
+            }
 
             $passwordArr    = array();
             for($i = 0; $i < $post['times']; $i++) {
@@ -56,7 +64,7 @@ class GeneratePassword
             }
 
             foreach ($passwordArr as $key => $value) {
-                $workflow->result(null, $value, $value, null, '', null);
+                $workflow->result($key + 1, $value, $value, null, '', null);
             }
         }
 
@@ -79,12 +87,13 @@ class GeneratePassword
             'upper'     => 'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
             'special'   => '~!@#$%^&*()_+{}|[]\-=:<>?/',
         );
+        $defaultType    = 'number-lower-upper';
 
         if($type == 'all') {        //全部
             $str = implode('', $strArr);
         } else if($type == 'custom') {        //自定义类型
             if(empty($customStr)) {    //未填写自定义类型，则默认为数字+大小写字母
-                $type    = 'number-lower-upper';
+                $type    = $defaultType;
             } else {
                 $str     = $customStr;
             }
@@ -92,7 +101,10 @@ class GeneratePassword
 
         //custom 没带自定义类型 或 其他类型
         if(empty($str)) {
-            $typeParts  = explode('-', $type);
+            $typeParts  = array_intersect(array_keys($strArr), (array)explode('-', $type));
+            if(empty($typeParts)) {
+                $typeParts = explode('-', $defaultType);
+            }
             $str        = '';
             foreach($typeParts as $part) {
                 $str   .= $strArr[$part];
