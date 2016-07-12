@@ -10,7 +10,7 @@ $zip -r ../dist/GeneratePassword.alfredworkflow ./*
 
 ###1. GeneratePassword
 Quick generate password in strong security.
-Download: [GeneratePassword.alfredworkflow][dist/GeneratePassword.alfredworkflow]
+Download: [GeneratePassword.alfredworkflow](dist/GeneratePassword.alfredworkflow)
 
 ```
 Usage:        generatepassword length=32\\&type=number-lower-upper\\&splitChar=_\\&splitLength=4\\&times=5
