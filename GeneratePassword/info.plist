@@ -63,7 +63,7 @@ $GeneratePassword-&gt;show();</string>
 				<key>scriptfile</key>
 				<string></string>
 				<key>subtext</key>
-				<string>Params: length=32\&amp;type=number-lower-upper\&amp;splitChar=_\&amp;splitLength=4\&amp;times=5\&amp;maxLength=100</string>
+				<string>Params: length=32&amp;type=number-lower-upper&amp;splitChar=_&amp;splitLength=4&amp;times=5</string>
 				<key>title</key>
 				<string>密码生成器</string>
 				<key>type</key>
