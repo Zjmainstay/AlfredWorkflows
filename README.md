@@ -10,10 +10,11 @@ $zip -r ../dist/GeneratePassword.alfredworkflow ./*
 
 ###1. GeneratePassword
 Quick generate password in strong security.
+
 Download: [GeneratePassword.alfredworkflow](dist/GeneratePassword.alfredworkflow)
 
 ```
-Usage:        generatepassword length=32\\&type=number-lower-upper\\&splitChar=_\\&splitLength=4\\&times=5
+Usage:        generatepassword length=32&type=number-lower-upper&splitChar=_&splitLength=4&times=5
 length:       length of password
 type:         password with which type of char, can be: number/lower/upper/special join by '-', or 'all' for all char and 'custom' for custom string
 customStr:    you can use type=custom to custom string for you password just like customStr=123456, and it will create password by use 123456
